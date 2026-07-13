@@ -39,18 +39,6 @@ export default function Products() {
     setPage(1)
   }, [search, categoryFilter, statusFilter])
 
-  if (loading) return <p>{t.loadingProducts}</p>
-  if (error) return <p style={{ color: 'red' }}>Error: {error}</p>
-
-  const categories = ['Todas', ...new Set(products.map((p) => p.category))]
-  const statusOptions = [
-    { value: 'Todos', label: t.all },
-    { value: 'Crítico', label: getStatusLabel('Crítico', language) },
-    { value: 'Bajo', label: getStatusLabel('Bajo', language) },
-    { value: 'Saludable', label: getStatusLabel('Saludable', language) },
-    { value: 'Exceso', label: getStatusLabel('Exceso', language) },
-  ]
-
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       const matchesSearch =
@@ -65,6 +53,18 @@ export default function Products() {
       return matchesSearch && matchesCategory && matchesStatus
     })
   }, [products, search, categoryFilter, statusFilter])
+
+  if (loading) return <p>{t.loadingProducts}</p>
+  if (error) return <p style={{ color: 'red' }}>Error: {error}</p>
+
+  const categories = ['Todas', ...new Set(products.map((p) => p.category))]
+  const statusOptions = [
+    { value: 'Todos', label: t.all },
+    { value: 'Crítico', label: getStatusLabel('Crítico', language) },
+    { value: 'Bajo', label: getStatusLabel('Bajo', language) },
+    { value: 'Saludable', label: getStatusLabel('Saludable', language) },
+    { value: 'Exceso', label: getStatusLabel('Exceso', language) },
+  ]
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE))
   const safePage = Math.min(page, totalPages)
