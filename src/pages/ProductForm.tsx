@@ -133,82 +133,105 @@ export default function ProductForm({ mode }: ProductFormProps) {
   if (loading) return <p>Cargando...</p>
 
   return (
-    <div style={{ padding: 24, maxWidth: 500 }}>
-      <h1>{mode === 'create' ? 'Nuevo producto' : 'Editar producto'}</h1>
+    <div className="form-page">
+      <div className="form-card form-card-wide">
+        <h1 className="form-title">{mode === 'create' ? 'Nuevo producto' : 'Editar producto'}</h1>
+        <p className="form-subtitle">
+          {mode === 'create'
+            ? 'Completa los datos del producto para registrarlo'
+            : 'Actualiza la información del producto'}
+        </p>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>SKU</label>
-          <input
-            value={form.sku}
-            onChange={(e) => handleChange('sku', e.target.value)}
-            disabled={mode === 'edit'}
-          />
-        </div>
+        <form className="form-grid" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label>SKU</label>
+            <input
+              className="form-input"
+              value={form.sku}
+              onChange={(e) => handleChange('sku', e.target.value)}
+              disabled={mode === 'edit'}
+            />
+          </div>
 
-        <div>
-          <label>Nombre</label>
-          <input value={form.name} onChange={(e) => handleChange('name', e.target.value)} />
-        </div>
+          <div className="form-field">
+            <label>Nombre</label>
+            <input
+              className="form-input"
+              value={form.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Categoría</label>
-          <input value={form.category} onChange={(e) => handleChange('category', e.target.value)} />
-        </div>
+          <div className="form-field">
+            <label>Categoría</label>
+            <input
+              className="form-input"
+              value={form.category}
+              onChange={(e) => handleChange('category', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Stock</label>
-          <input
-            type="number"
-            value={form.stock}
-            onChange={(e) => handleChange('stock', e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label>Stock</label>
+            <input
+              className="form-input"
+              type="number"
+              value={form.stock}
+              onChange={(e) => handleChange('stock', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Costo unitario</label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.unit_cost}
-            onChange={(e) => handleChange('unit_cost', e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label>Costo unitario</label>
+            <input
+              className="form-input"
+              type="number"
+              step="0.01"
+              value={form.unit_cost}
+              onChange={(e) => handleChange('unit_cost', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Precio</label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.price}
-            onChange={(e) => handleChange('price', e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label>Precio</label>
+            <input
+              className="form-input"
+              type="number"
+              step="0.01"
+              value={form.price}
+              onChange={(e) => handleChange('price', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Demanda semanal</label>
-          <input
-            type="number"
-            value={form.weekly_demand}
-            onChange={(e) => handleChange('weekly_demand', e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label>Demanda semanal</label>
+            <input
+              className="form-input"
+              type="number"
+              value={form.weekly_demand}
+              onChange={(e) => handleChange('weekly_demand', e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label>Fecha de vencimiento</label>
-          <input
-            type="date"
-            value={form.expiration_date}
-            onChange={(e) => handleChange('expiration_date', e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label>Fecha de vencimiento</label>
+            <input
+              className="form-input"
+              type="date"
+              value={form.expiration_date}
+              onChange={(e) => handleChange('expiration_date', e.target.value)}
+            />
+          </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p className="form-error">{error}</p>}
 
-        <button type="submit" disabled={saving}>
-          {saving ? 'Guardando...' : 'Guardar'}
-        </button>
-      </form>
+          <div className="form-actions">
+            <button className="form-button" type="submit" disabled={saving}>
+              {saving ? 'Guardando...' : 'Guardar'}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

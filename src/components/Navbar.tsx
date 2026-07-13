@@ -1,8 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useLanguage } from '../context/LanguageContext'
 import { supabase } from '../lib/supabase'
+import { translations } from '../lib/translations'
 
 export function Navbar() {
   const navigate = useNavigate()
+  const { language, toggleLanguage } = useLanguage()
+  const t = translations[language]
 
   async function handleLogout() {
     await supabase.auth.signOut()
@@ -19,7 +23,7 @@ export function Navbar() {
               <path d="M7 14l3-3 2 2 5-6" />
             </svg>
           </span>
-          <span>Dashboard</span>
+          <span>{t.dashboard}</span>
         </Link>
         <Link className="nav-link products" to="/products">
           <span className="nav-icon" aria-hidden="true">
@@ -29,12 +33,17 @@ export function Navbar() {
               <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
             </svg>
           </span>
-          <span>Productos</span>
+          <span>{t.products}</span>
         </Link>
       </div>
-      <button className="nav-logout" type="button" onClick={handleLogout}>
-        Cerrar sesión
-      </button>
+      <div className="navbar-actions">
+        <button className="lang-toggle" type="button" onClick={toggleLanguage}>
+          {language === 'es' ? 'EN' : 'ES'}
+        </button>
+        <button className="nav-logout" type="button" onClick={handleLogout}>
+          {t.logout}
+        </button>
+      </div>
     </nav>
   )
 }
