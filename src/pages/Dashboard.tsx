@@ -34,26 +34,31 @@ export default function Dashboard() {
     0
   )
 
- const expiringSoonCount = products.filter((p) => isExpiringSoon(p.expiration_date)).length
+  const formattedInventoryValue = totalInventoryValue.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+
+  const expiringSoonCount = products.filter((p) => isExpiringSoon(p.expiration_date)).length
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="page-shell">
       <h1>Dashboard</h1>
 
-      <div style={{ display: 'flex', gap: 24, marginTop: 24 }}>
-        <div style={{ border: '1px solid #333', borderRadius: 8, padding: 20, minWidth: 200 }}>
-          <p style={{ margin: 0, opacity: 0.7 }}>Total de SKUs activos</p>
-          <h2 style={{ margin: '8px 0 0' }}>{totalSkus}</h2>
+      <div className="dashboard-cards">
+        <div className="kpi-card thistle">
+          <p className="kpi-label">Total de SKUs activos</p>
+          <h2 className="kpi-value">{totalSkus}</h2>
         </div>
 
-        <div style={{ border: '1px solid #333', borderRadius: 8, padding: 20, minWidth: 200 }}>
-          <p style={{ margin: 0, opacity: 0.7 }}>Valor total del inventario</p>
-          <h2 style={{ margin: '8px 0 0' }}>${totalInventoryValue.toFixed(2)}</h2>
+        <div className="kpi-card lilac">
+          <p className="kpi-label">Valor total del inventario</p>
+          <h2 className="kpi-value">${formattedInventoryValue}</h2>
         </div>
 
-        <div style={{ border: '1px solid #333', borderRadius: 8, padding: 20, minWidth: 200 }}>
-          <p style={{ margin: 0, opacity: 0.7 }}>SKUs próximos a vencer</p>
-          <h2 style={{ margin: '8px 0 0' }}>{expiringSoonCount}</h2>
+        <div className="kpi-card mauve">
+          <p className="kpi-label">SKUs próximos a vencer</p>
+          <h2 className="kpi-value">{expiringSoonCount}</h2>
         </div>
       </div>
     </div>

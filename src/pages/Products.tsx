@@ -49,35 +49,42 @@ export default function Products() {
   })
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="page-shell">
       <h1>Productos</h1>
-      <Link to="/products/new">+ Nuevo producto</Link>
+      <Link className="new-product-btn" to="/products/new">+ Nuevo producto</Link>
 
-      <div style={{ display: 'flex', gap: 12, marginBottom: 16, marginTop: 16 }}>
+      <div className="product-actions">
         <input
+          className="search-input"
           type="text"
           placeholder="Buscar por nombre o SKU..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-          {categories.map((c) => (
-            <option key={c} value={c}>{c}</option>
-          ))}
-        </select>
+        <div className="filter-group">
+          <label className="filter-label" htmlFor="category-filter">Filtrar por categoría</label>
+          <select id="category-filter" className="filter-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            {categories.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
 
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-          {statuses.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
+        <div className="filter-group">
+          <label className="filter-label" htmlFor="status-filter">Filtrar por estado</label>
+          <select id="status-filter" className="filter-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+            {statuses.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {filteredProducts.length === 0 ? (
-        <p>No se encontraron productos con esos filtros.</p>
+        <p className="empty-state">No se encontraron productos con esos filtros.</p>
       ) : (
-        <table border={1} cellPadding={8} style={{ borderCollapse: 'collapse', width: '100%' }}>
+        <table className="products-table">
           <thead>
             <tr>
               <th>SKU</th>
